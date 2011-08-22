@@ -3,17 +3,43 @@
 #= require jquery_ujs
 #= require underscore
 #= require backbone
+#= require string_score
 #= require_tree .
+#= require_self
 
 class Application extends Backbone.View
+  tagName: 'form'
   id: 'jobs-app'
 
+  template: _.template("""
+    <div class="shadow"></div>
+    <div class="letter">
+      <div class="viewport"></div>
+    </div>
+  """)
+
+  events:
+    'click .shadow': 'hide'
+    'submit':        'submit'
+
+
   initialize: ->
-    console.log 'init'
+    @pageView = new PageView()
+
+    $(@el)
+      .html(@template())
+      .find('.viewport').append(@pageView.el)
 
   render: ->
-    console.log 'render'
-    $(@el).text 'foo'
+    @pageView.render()
+
+  hide: ->
+    $(@el).hide()
+
+  submit: (e) ->
+    e.preventDefault()
+
+    alert @pageView.toJSON()
 
 
 $(document).ready ->
@@ -22,6 +48,5 @@ $(document).ready ->
 
     # Take the naming from Objective-C Cocoa
     window.App = new Application()
-    App.render()
     $('body').append App.el
-
+    App.render()
