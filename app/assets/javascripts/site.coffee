@@ -53,7 +53,7 @@ class window.SiteView extends Backbone.View
     <a class="remove">Remove</a>
     <div class="url">
       <span class="scheme">http://</span>
-      <input type="text" value="<%= url %>" />
+      <input type="text" value="<%= url %>" name="url" id="url"/>
     </div>
     <div class="supported-sites"></div>
 

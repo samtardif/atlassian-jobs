@@ -1,12 +1,22 @@
 Given /^I want to apply for a job$/ do
-  visit '/'
+  # visit '/'
   # pending # express the regexp above with the code you wish you had
 end
 
-When /^I click "([^"]*)"$/ do |arg1|
-  click_on 'apply'
+Then /^I should see the application form$/ do
+  page.has_css?('form#jobs-app', :visible => true)
 end
 
-Then /^the application form should be displayed$/ do
-  find('form').should be_visible
+Given /^I have a github\.com account$/ do
+end
+
+When /^I type "([^"]*)" into "([^"]*)"$/ do |arg1, arg2|
+  page.has_css?('form#jobs-app .site', :visible => true)
+  within('form#jobs-app .site') do
+    fill_in 'url', :with => 'github.com/chrislloyd'
+  end
+end
+
+Then /^I should see my followers$/ do
+  page.has_css?('.site .followers', :visible => true)
 end
