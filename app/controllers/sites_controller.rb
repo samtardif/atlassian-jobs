@@ -1,5 +1,5 @@
 class SitesController < ApplicationController
-  def get_stats
+  def show
     case params[:service]
     when 'github'
       render :json => Github.get_stats(params[:username])

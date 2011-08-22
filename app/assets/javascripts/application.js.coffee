@@ -30,11 +30,24 @@ class Application extends Backbone.View
       .html(@template())
       .find('.viewport').append(@pageView.el)
 
+
   render: ->
     @pageView.render()
 
+  show: ->
+    $(@el).show()
+    @$('.shadow').fadeIn(300)
+    @$('.letter')
+      .css(top: window.innerHeight)
+      .animate({top: 0}, 300)
+
   hide: ->
-    $(@el).hide()
+    @$('.letter').animate {top: window.innerHeight}, 300
+    @$('.shadow').fadeOut 300
+    setTimeout (=> $(@el).hide()), 300
+
+    # $(@el).hide()
+    # .hide()
 
   submit: (e) ->
     e.preventDefault()
@@ -47,6 +60,10 @@ $(document).ready ->
     e.preventDefault()
 
     # Take the naming from Objective-C Cocoa
-    window.App = new Application()
-    $('body').append App.el
-    App.render()
+    window.App ||= do ->
+      App = new Application()
+      $('body').append App.el
+      App.render()
+      App
+
+    App.show()

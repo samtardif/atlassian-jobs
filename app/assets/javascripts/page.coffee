@@ -7,7 +7,7 @@ class window.PageView extends Backbone.View
       <input type="text" placeholder="John Smith"></input>
     </div>
 
-    <div>
+    <div class="email">
       <label>Email</label>
       <input type="email" placeholder="email@example.com"></input>
     </div>
@@ -38,3 +38,5 @@ class window.PageView extends Backbone.View
   toJSON: ->
     JSON.stringify
       name: @$('.name input').val()
+      email: @$('.email input').val()
+      sites: @siteCollectionView.toJSON()

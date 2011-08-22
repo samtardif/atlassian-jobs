@@ -1,0 +1,219 @@
+Feature: View applicants coding accounts
+	In order to see how an applicant codes
+	As a employer
+	I want to view applicants coding account repositories
+
+Scenario:
+	Given an applicant has applied for a job
+	And provided a coding account
+	When the applicant press the apply button
+	Then i will receive a file with their coding account
+
+Feature: Apply with a resume
+	In order to apply with a text based resume
+	As a user
+	I want be able to submit a resume as a pdf, txt, doc file.
+
+Scenario:
+	Given i want to apply for a job
+	And i want to submit a text based resume
+	When i upload my resume
+	Then it should save my resume
+
+Feature: Apply Button
+	In order to apply for a job
+	As a user
+	I want to view the application form when i click the apply button
+
+Scenario:
+	Given i want to apply for a job
+	And i click the apply button
+	When i click the apply button
+	Then the application form should be displayed
+
+Feature: System integration
+	In order for the application system
+	As a
+	I want
+
+Scenario:
+	Given
+	And
+	When
+	Then
+
+Feature:Available Jobs
+	In order to apply for a job
+	As a user
+	I want to be able to select an available job
+
+Scenario:
+	Given i want to apply for a job
+	And then are available jobs
+	When i click on an available job
+	Then the job will be selected.
+
+Feature:Provide Jobs
+	In order to provide jobs that are available
+	As a employer
+	I want be able to specify jobs that are available
+
+Scenario:
+	Given there is a job available
+	And i want to advertise this job
+	When i create a job listing
+	Then the listing should be shown as available
+
+Feature: Highlighting coding repository
+	In order mark a coding repository for review
+	As a user
+	I want be able to select a repository and mark it
+
+Scenario:
+	Given i have a coding repository
+	And i want to mark it for review
+	When i select the repository
+	Then it should be shown as marked for review
+
+Feature: Application Rank
+	In order to rank multiple applications
+	As a employer
+	I want to view applications in order of ranking
+
+Scenario:
+	Given
+	And
+	When
+	Then
+
+Feature:Submit button
+	In order to submit my application
+	As a user
+	I want my application to submit when i click the submit application button
+
+Scenario:
+	Given i want to submit my application
+	And i click the submit application button
+	When i click the submit application button
+	Then my application will submit
+
+Feature:
+	In order to provide additional comments
+	As a user
+	I want to be able to provide some additional comments with my application
+
+Scenario:
+	Given i want to provide some additional comments
+	And i enter these in the comments section
+	When i enter these comments into the comments section
+	Then the should be saved with my application
+
+Feature:Provide coding account
+	In order to submit my coding account for review
+	As a user
+	I want be able to provide a link to my coding account
+
+Scenario:
+	Given i have a coding account
+	And i want to submit my account for review
+	When i provide a link to my coding account
+	Then my coding account should be displayed
+
+Feature: Refer friend
+	In order refer a friend for a job
+	As a user
+	I want to be able to refer a friend for a available job
+
+Scenario:
+	Given i want to refer a friend for a job
+	And there is a job available
+	When i refer a friend for a job
+	Then
+
+Feature:Select Location
+	In order apply for a job at a specific location
+	As a user
+	I want to be able to choose a location for jobs
+
+Scenario:
+	Given i want to apply for a job
+	And i know the location i want to select
+	When i choose a location from the available locations
+	Then the location i have selected should be displayed
+
+Feature:Personal Details
+	In order to provide personal details
+	As a user
+	I want to provide details like my address phone, number
+
+Scenario:
+	Given i want to provide my personal details
+	And
+	When i enter my details into the form
+	Then my details will be saved and displayed
+
+Feature:Supported Coding Repository button
+	In order submit my supported coding repository
+	As a user
+	I want to click the supported coding repository button
+
+Scenario:
+	Given i have a coding repository to submit
+	And my coding repository is supported
+	When i click the supported repository button
+	Then the base link to this repository will be displayed
+
+Feature: Link Parsing
+	In order to parse a support coding repository link
+	As a employer
+	I want the form to parse links for supported coding repositories
+
+Scenario:
+	Given A link is provided
+	And the link is for a supported coding repository
+	When the link is entered
+	Then the supported coding repository will be displayed
+
+Feature:
+	In order for the system to integrate into our website
+	As a employer
+	I want the system to scroll up from the base of our webpage when i click apply
+
+Scenario:
+	Given i have the system
+	And i have the website
+	When i click the apply button
+	Then the application system should scroll up from the base of the webpage.
+
+Feature:Submit Cover Letter
+	In order to submit a cover letter
+	As a user
+	I want to be able to upload a cover letter to the system
+
+Scenario:
+	Given i want to upload a cover letter
+	And i have a cover letter to upload
+	When when i upload my cover letter
+	Then my cover letter should be stored
+
+Feature: Provide unsupported link
+	In order to provide a link to my work that isn't parseable
+	As a user
+	I want to be able to provide a link to this work
+
+Scenario:
+	Given i want to submit a link to my work
+	And i have a link to submit
+	When i submit the link
+	Then the link should be stored
+
+Feature:
+	In order
+	As a
+	I want
+
+Scenario:
+	Given
+	And
+	When
+	Then

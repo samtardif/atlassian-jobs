@@ -4,7 +4,7 @@
 @import 'bourbon';
 
 html {
-  background: darken(white, 5%);
+//  background: darken(white, 5%);
 }
 
 #page {
@@ -13,7 +13,8 @@ html {
   width: 240px;
   margin: 40px auto;
   background: white;
-  @include border-radius(12px);
+  @include border-radius(6px);
+  border: 1px solid darken(white, 5%);
   padding: 24px;
 
   img {
@@ -29,7 +30,7 @@ $width: 540px;
   .shadow {
     position: fixed;
     top: 0; right: 0; bottom: 0; left: 0;
-    background: rgba(black, 0.6);
+    background: rgba(black, 0.4);
   }
 
   .letter {
@@ -38,10 +39,10 @@ $width: 540px;
     margin-top: 24px;
     margin-left: -$width / 2;
     top: 0; bottom: 0; left: 50%;
-    padding: 24px;
+    padding: 24px 48px;
 
     background: white;
-    @include border-radius(6px 6px 0 0);
+    @include border-radius(2px 2px 0 0);
     @include box-shadow(0 0 12px rgba(black, 0.4));
 
     .viewport {

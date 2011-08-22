@@ -1,4 +1,6 @@
 class window.Site extends Backbone.Model
+  defaults:
+    url: ''
 
 class window.SiteCollection extends Backbone.Collection
 
@@ -27,12 +29,21 @@ class window.SiteCollectionView extends Backbone.View
       siteView.render()
 
   addEmptySite: ->
-    @collection.add({})
+    model = new Site()
+    @collection.add(model)
+
+  addSiteWithUrl: (url) ->
+    siteModel = new Site(url: url)
+    @collection.add(siteModel)
 
   addSite: (site) ->
     siteView = new SiteView(model: site)
     @$('.add-site').before(siteView.el)
     @siteViews.push siteView
+
+  toJSON: ->
+    view.toJSON() for view in @siteViews
+
 
 class window.SiteView extends Backbone.View
   className: 'site'
@@ -42,24 +53,25 @@ class window.SiteView extends Backbone.View
     <a class="remove">Remove</a>
     <div class="url">
       <span class="scheme">http://</span>
-      <input type="text" />
+      <input type="text" value="<%= url %>" />
     </div>
     <div class="supported-sites"></div>
 
-    <textarea class="description">Foo Bar</textarea>
+    <div class="description">
+      <div class="followers"></div>
+      <textarea placeholder="Description"></textarea>
+    </div>
   """)
 
   events:
     'click .remove': 'hide'
-    'keydown .url input': 'highlightSite'
-    'change .url input': 'highlightSite'
+    'blur .url input': 'fetchData'
 
   initialize: ->
-    _.bindAll @, 'highlightSite'
+    _.bindAll @, 'fetchData'
 
     @parser = new SiteParser()
-    $(@el).html(@template())
-    # setInterval @highlightSite, 50
+    $(@el).html(@template(@model.toJSON()))
 
     @$('.supported-sites').html _.map(@supportedSites(), (name) ->
       "<span class=\"#{name}\">#{name}</span>"
@@ -72,10 +84,23 @@ class window.SiteView extends Backbone.View
     @model.collection.remove(@model)
     @remove()
 
-  highlightSite: ->
-    console.log @parser.score(@$('.url input').val())
-    # console.log (e.ta)
+  fetchData: (e) ->
+    @model.set url: $(e.target).val()
+
+    result = @parser.parse(@model.get('url'))
+    console.log $(e.target).val()
+    console.log result
+    if result
+      username = result[1].username
+      $.getJSON "http://github.com/api/v2/json/user/show/#{username}?callback=?", (data) =>
+        @$('.description textarea').remove()
+        @$('.description .followers').text "#{data.user.followers_count} followers"
+        blogURL = data.user.blog.replace(/^http:\/\//, '')
+        App.pageView.siteCollectionView.addSiteWithUrl(blogURL)
 
   supportedSites: ->
     [name for name, v of @parser.sites]
+
+  toJSON: ->
+    @model.toJSON(url: @$('.url input').val())
 
