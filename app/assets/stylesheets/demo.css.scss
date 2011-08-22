@@ -1,0 +1,25 @@
+//= require normalize
+//= require_self
+
+@import 'bourbon';
+
+html {
+  background: darken(white, 5%);
+}
+
+body {
+  font: 14px/18px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+#page {
+  text-align: center;
+  width: 240px;
+  margin: 40px auto;
+  background: white;
+  @include border-radius(12px);
+  padding: 24px;
+
+  img {
+    margin-bottom: 24px;
+  }
+}
