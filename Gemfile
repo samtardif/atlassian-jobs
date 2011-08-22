@@ -22,8 +22,11 @@ group :development do
   gem 'foreman'
 end
 
-# group :test do
+group :test, :development do
   gem 'rspec'
   gem 'rspec-rails'
   gem 'cucumber'
-# end
+  gem 'cucumber-rails'
+  gem 'capybara'
+  gem 'capybara-webkit'
+end
