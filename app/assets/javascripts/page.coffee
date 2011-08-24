@@ -1,38 +1,33 @@
+window.repeat = (ms, fn) -> setInterval(fn, ms)
+
 class window.PageView extends Backbone.View
   className: 'page'
 
   template: _.template("""
-    <section class="formal-details">
-      <div class="address-line-1">
-        <input type="text" placeholder="Address Line 1">
-      </div>
-      <div class="address-line-2">
-        <input type="text" placeholder="Address Line 2">
+    <aside class="formal-details">
+      <div class="address">
+        <input type="text" placeholder="Address">
       </div>
 
-      <div class="address-city">
+      <div class="city">
         <input type="text" placeholder="City">
       </div>
 
-      <div class="address-state">
+      <div class="state">
         <input type="text" placeholder="State">
       </div>
-    </section>
 
+      <div class="country">
+        <input type="text" placeholder="Country">
+      </div>
+    </aside>
 
+    <div class="editable">
+      <p>Hello Atlassian!</p>
 
-    <p>Hi Atlassian!</p>
-
-    <p>My name is</p>
-
-    <div class="name">
-      <label>Name</label>
-      <input type="text" placeholder="John Smith"></input>
-    </div>
-
-    <div class="email">
-      <label>Email</label>
-      <input type="email" placeholder="email@example.com"></input>
+      <p>
+        My name is <span class="name editable" contenteditable="true" data-placeholder="John Smith"></span>. I'd love to work with you guys. Helping developers is my passion and I think our talents would be perfect together.
+      </p>
     </div>
 
     <div class="sites"></div>
@@ -52,6 +47,38 @@ class window.PageView extends Backbone.View
       el: @$('.sites')
     )
 
+    @$('span[contenteditable=true]')
+      .bind 'focus', ->
+        input = $(@)
+        if input.hasClass('placeholder')
+          width = input.width()
+          input
+            .removeClass('placeholder')
+            .text('')
+            .addClass('empty')
+            .css('width', width)
+            .focus()
+
+      .bind 'blur', ->
+        input = $(@)
+        if input.text() is ''
+          input.addClass('placeholder').text(input.data('placeholder'))
+
+      .blur()
+
+    repeat 50, =>
+      @$('span[contenteditable=true]').each ->
+        input = $(@)
+        if input.text() isnt ''
+          input.removeClass('empty')
+
+
+
+    # repeat 50, =>
+    #   input = @$('span[contenteditable=true]')
+    #   if input.text() is ''
+    #     input.text input.data('placeholder')
+
     @siteCollectionView.addEmptySite()
 
 
@@ -60,12 +87,13 @@ class window.PageView extends Backbone.View
 
   toJSON: ->
     JSON.stringify
-      name: @$('.name input').val()
-      address:
-        line1: @$('.address-line-1 input').val()
-        line2: @$('.address-line-2 input').val()
-        city: @$('.address-city input').val()
-        state: @$('.address-state input').val()
+      name: @$('.name').text()
+
+      address: @$('.address input').val()
+      city: @$('.city input').val()
+      state: @$('.state input').val()
+      country: @$('.country input').val()
+
       email: @$('.email input').val()
       sites: @siteCollectionView.toJSON()
 

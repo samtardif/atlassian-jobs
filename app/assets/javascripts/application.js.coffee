@@ -30,7 +30,6 @@ class Application extends Backbone.View
       .html(@template())
       .find('.viewport').append(@pageView.el)
 
-
   render: ->
     @pageView.render()
 
