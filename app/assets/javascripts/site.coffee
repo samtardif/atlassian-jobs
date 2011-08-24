@@ -64,6 +64,11 @@ class window.SiteView extends Backbone.View
     </div>
   """)
 
+  template_bitbucket: _.template("""
+    <div class="gravatar"></div>
+    <div class="repositories"></div>
+  """)
+
   events:
     'click .remove': 'hide'
     'blur .url input': 'fetchData'
@@ -93,14 +98,27 @@ class window.SiteView extends Backbone.View
     console.log result
     if result
       username = result[1].username
-      $.getJSON "http://github.com/api/v2/json/user/show/#{username}?callback=?", (data) =>
-        @$('.description textarea').remove()
-        @$('.description .followers').text "#{data.user.followers_count} followers"
-        @$('.description .gravatar').html "<img src=\"http://www.gravatar.com/avatar/#{data.user.gravatar_id}\" />" if data.user.gravatar_id
-        $('.name input').val(data.user.name) if $('.name input').val != ""
-        $('.email input').val(data.user.email) if $('.email input').val != ""
-        blogURL = data.user.blog.replace(/^http:\/\//, '')
-        App.pageView.siteCollectionView.addSiteWithUrl(blogURL)
+      switch result[0]
+        when "github"
+          $.getJSON "http://github.com/api/v2/json/user/show/#{username}?callback=?", (data) =>
+            @$('.description textarea').remove()
+            @$('.description .followers').text "#{data.user.followers_count} followers"
+            @$('.description .gravatar').html "<img src=\"http://www.gravatar.com/avatar/#{data.user.gravatar_id}\" />" if data.user.gravatar_id
+            $('.name input').val(data.user.name) if $('.name input').val() == ""
+            $('.email input').val(data.user.email) if $('.email input').val() == ""
+            blogURL = data.user.blog.replace(/^http:\/\//, '')
+            App.pageView.siteCollectionView.addSiteWithUrl(blogURL)
+        when "bitbucket"
+          $.getJSON "https://api.bitbucket.org/1.0/users/#{username}?callback=?", (data) =>
+            console.log data
+            @$('.description').html(@template_bitbucket)
+            @$('.description .gravatar').html "<img src=\"#{data.user.avatar}\" />" if data.user.avatar
+            @$('.description .repositories').html _.map(data.repositories, (repository) ->
+              "<span><a href=\"#{repository.website}\">#{repository.name}</a></span>"
+            ).join(', ')
+            $('.name input').val(data.user.first_name + " " + data.user.last_name) if $('.name input').val() == ""
+            $('.email input').val(data.user.email) if $('.email input').val() == ""
+
 
   supportedSites: ->
     [name for name, v of @parser.sites]
