@@ -59,6 +59,7 @@ class window.SiteView extends Backbone.View
 
     <div class="description">
       <div class="followers"></div>
+      <div class="gravatar"></div>
       <textarea placeholder="Description"></textarea>
     </div>
   """)
@@ -95,6 +96,9 @@ class window.SiteView extends Backbone.View
       $.getJSON "http://github.com/api/v2/json/user/show/#{username}?callback=?", (data) =>
         @$('.description textarea').remove()
         @$('.description .followers').text "#{data.user.followers_count} followers"
+        @$('.description .gravatar').html "<img src=\"http://www.gravatar.com/avatar/#{data.user.gravatar_id}\" />" if data.user.gravatar_id
+        $('.name input').val(data.user.name) if $('.name input').val != ""
+        $('.email input').val(data.user.email) if $('.email input').val != ""
         blogURL = data.user.blog.replace(/^http:\/\//, '')
         App.pageView.siteCollectionView.addSiteWithUrl(blogURL)
 

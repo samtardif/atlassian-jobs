@@ -1,0 +1,74 @@
+
+
+Started GET "/" for 10.0.2.2 at 2011-08-24 22:11:30 +1000
+  Processing by HomeController#index as HTML
+Rendered home/index.haml within layouts/application (3.6ms)
+Completed 200 OK in 329ms (Views: 328.1ms)
+
+
+Started GET "/assets/application.css" for 10.0.2.2 at 2011-08-24 22:11:31 +1000
+Compiled app/assets/stylesheets/application.css.scss  (1103ms)  (pid 14365)
+Compiled vendor/assets/stylesheets/normalize.css  (0ms)  (pid 14365)
+Compiled app/assets/stylesheets/application.css.scss  (0ms)  (pid 14365)
+Served asset /application.css - 200 OK (1172ms)
+
+
+Started GET "/assets/application.js" for 10.0.2.2 at 2011-08-24 22:11:32 +1000
+Compiled app/assets/javascripts/application.js.coffee  (1173ms)  (pid 14365)
+Compiled /usr/local/rvm/gems/ruby-1.9.2-p180/gems/backbone-rails-0.5.2/vendor/assets/javascripts/json2.js  (12ms)  (pid 14365)
+Compiled /usr/local/rvm/gems/ruby-1.9.2-p180/gems/jquery-rails-1.0.13/vendor/assets/javascripts/jquery.js  (9ms)  (pid 14365)
+Compiled /usr/local/rvm/gems/ruby-1.9.2-p180/gems/jquery-rails-1.0.13/vendor/assets/javascripts/jquery_ujs.js  (0ms)  (pid 14365)
+Compiled /usr/local/rvm/gems/ruby-1.9.2-p180/gems/backbone-rails-0.5.2/vendor/assets/javascripts/underscore.js  (0ms)  (pid 14365)
+Compiled /usr/local/rvm/gems/ruby-1.9.2-p180/gems/backbone-rails-0.5.2/vendor/assets/javascripts/backbone.js  (0ms)  (pid 14365)
+Compiled vendor/assets/javascripts/string_score.js  (0ms)  (pid 14365)
+Compiled app/assets/javascripts/page.coffee  (405ms)  (pid 14365)
+Compiled app/assets/javascripts/site.coffee  (435ms)  (pid 14365)
+Compiled app/assets/javascripts/site_parser.coffee  (411ms)  (pid 14365)
+Compiled app/assets/javascripts/application.js.coffee  (0ms)  (pid 14365)
+Served asset /application.js - 200 OK (3094ms)
+
+
+Started GET "/assets/atlassian.png" for 10.0.2.2 at 2011-08-24 22:11:35 +1000
+Served asset /atlassian.png - 200 OK (35ms)
+
+
+Started GET "/" for 10.0.2.2 at 2011-08-24 22:13:00 +1000
+  Processing by HomeController#index as HTML
+Rendered home/index.haml within layouts/application (0.9ms)
+Completed 200 OK in 16ms (Views: 15.3ms)
+
+
+Started GET "/assets/application.css" for 10.0.2.2 at 2011-08-24 22:13:00 +1000
+Served asset /application.css - 200 OK (4ms)
+
+
+Started GET "/assets/application.js" for 10.0.2.2 at 2011-08-24 22:13:00 +1000
+Compiled app/assets/javascripts/site.coffee  (434ms)  (pid 14365)
+Compiled app/assets/javascripts/application.js.coffee  (494ms)  (pid 14365)
+Compiled app/assets/javascripts/application.js.coffee  (0ms)  (pid 14365)
+Served asset /application.js - 200 OK (1030ms)
+
+
+Started GET "/assets/atlassian.png" for 10.0.2.2 at 2011-08-24 22:13:01 +1000
+Served asset /atlassian.png - 200 OK (2ms)
+
+
+Started GET "/" for 10.0.2.2 at 2011-08-24 22:13:25 +1000
+  Processing by HomeController#index as HTML
+Rendered home/index.haml within layouts/application (1.4ms)
+Completed 200 OK in 20ms (Views: 18.8ms)
+
+
+Started GET "/assets/application.css" for 10.0.2.2 at 2011-08-24 22:13:25 +1000
+Served asset /application.css - 200 OK (5ms)
+
+
+Started GET "/assets/application.js" for 10.0.2.2 at 2011-08-24 22:13:25 +1000
+Compiled app/assets/javascripts/site.coffee  (490ms)  (pid 14365)
+Compiled app/assets/javascripts/application.js.coffee  (439ms)  (pid 14365)
+Compiled app/assets/javascripts/application.js.coffee  (0ms)  (pid 14365)
+Served asset /application.js - 200 OK (1017ms)
+
+
+Started GET "/assets/atlassian.png" for 10.0.2.2 at 2011-08-24 22:13:26 +1000
+Served asset /atlassian.png - 200 OK (0ms)
