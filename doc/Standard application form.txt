@@ -1,0 +1,19 @@
+#Standard Text for the Application Form
+
+Dear Atlassian
+
+My name is "Enter Name"
+
+I want to "apply/refer a friend" for for the available job of "provide list of available roles"
+
+Id like to provide you with some information about me
+
+"upload resume here or submit coding account link"
+
+We support Dribble,Github, Bitbucket, Linkedin.
+
+Is there is anything else you want to tell us??
+
+Apply!!!!!
+
+
