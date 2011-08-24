@@ -4,22 +4,25 @@
 @import 'bourbon';
 
 html {
-//  background: darken(white, 5%);
+  background: #D6D6D6 url('<%= asset_path('careers-mock.png') %>') top center no-repeat;
 }
 
 #page {
   font: 14px/18px 'Helvetica Neue', Helvetica, Arial, sans-serif;
   text-align: center;
-  width: 240px;
+
   margin: 40px auto;
   background: white;
-  @include border-radius(6px);
   border: 1px solid darken(white, 5%);
-  padding: 24px;
 
-  img {
-    margin-bottom: 24px;
-  }
+  position: fixed;
+  top: 50%; margin-top: -(72px / 2);
+  left: 50%; margin-left: -(240px - (24px * 2)) / 2;
+  padding: 24px;
+  width: 240px - (24px * 2);
+
+  @include box-shadow(0 3px 12px rgba(0,0,0,0.4));
+  border: 1px solid #CCC;
 }
 
 $width: 540px;
@@ -41,8 +44,8 @@ $width: 540px;
     top: 0; bottom: 0; left: 50%;
     padding: 24px 48px;
 
-    background: white;
-    @include border-radius(2px 2px 0 0);
+    background: white url('<%= asset_path('letterhead.png') %>') top repeat-x;
+    @include border-radius(3px 3px 0 0);
     @include box-shadow(0 0 12px rgba(black, 0.4));
 
     .viewport {
@@ -53,6 +56,11 @@ $width: 540px;
   }
 
   .page {
+    .formal-details {
+      float: right;
+      width: 200px;
+    }
+
     div {
       margin-bottom: 24px;
     }

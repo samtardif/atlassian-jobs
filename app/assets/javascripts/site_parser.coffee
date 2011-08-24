@@ -30,8 +30,8 @@ class window.SiteParser
     bitbucket: compile 'bitbucket.com/:username'
 
   parse: (url) ->
-    for name, fn of @sites
-      return [name, args] if args = fn(url)
+    for name, fn of @sites when args = fn(url)
+      return [name, args]
 
     return false
 
