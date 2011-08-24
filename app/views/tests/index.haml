@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{charset: 'UTF-8'}
+    %title Atlassian Jobs Test Suite
+    = stylesheet_link_tag asset_path('qunit.css')
+    = javascript_include_tag asset_path('qunit.js')
+    = javascript_include_tag 'tests'
+  %body
+    %h1#qunit-header Atlassian Jobs Test Suite
+    %h2#qunit-banner
+
+    #qunit-testrunner-toolbar
+    %h2#qunit-userAgent
+    %ol#qunit-tests
+    #qunit-fixture test markup

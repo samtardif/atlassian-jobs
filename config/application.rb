@@ -46,6 +46,8 @@ module AtlassianJobs
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    config.assets.paths << Rails.root.join('spec', 'javascripts')
+
     config.generators do |g|
       g.test_framework :rspec
     end
