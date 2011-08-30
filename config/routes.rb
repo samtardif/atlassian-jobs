@@ -1,7 +1,7 @@
 AtlassianJobs::Application.routes.draw do
   root :to => 'home#index'
 
-  get '/github' => 'sites#show', :service => 'github'
+  get '/sites/:name' => 'sites#show'
 
   get '/tests' => 'tests#index'
 end

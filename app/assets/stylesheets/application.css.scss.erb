@@ -45,6 +45,7 @@ $width: 540px;
     padding: 24px 48px;
 
     background: white url('<%= asset_path('letterhead.png') %>') top repeat-x;
+//    background: url('<%= asset_path('letterhead.png') %>') top repeat-x, url(<%= asset_path('grid.png') %>) left 12px repeat, white;
     @include border-radius(3px 3px 0 0);
     @include box-shadow(0 0 12px rgba(black, 0.4));
 
@@ -56,6 +57,7 @@ $width: 540px;
   }
 
   .page {
+
     .formal-details {
       float: right;
       width: 200px;

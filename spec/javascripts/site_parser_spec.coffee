@@ -11,7 +11,7 @@ test 'github', ->
   [service, details] = @parser.parse(url)
 
   ok(service)
-  equal service, 'github'
+  equal service, 'Github'
   equal details.username, 'chrislloyd'
 
 test 'dribbble', ->
@@ -19,7 +19,7 @@ test 'dribbble', ->
   [service, details] = @parser.parse(url)
 
   ok(service)
-  equal service, 'dribbble'
+  equal service, 'Dribbble'
   equal details.username, 'chrislloyd'
 
 test 'bitbucket', ->
@@ -27,5 +27,5 @@ test 'bitbucket', ->
   [service, details] = @parser.parse(url)
 
   ok(service)
-  equal service, 'bitbucket'
+  equal service, 'BitBucket'
   equal details.username, 'chrislloyd'

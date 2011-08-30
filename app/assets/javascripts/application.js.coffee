@@ -4,6 +4,7 @@
 #= require underscore
 #= require backbone
 #= require string_score
+#= require gravtastic
 #= require_tree .
 #= require_self
 

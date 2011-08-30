@@ -1,6 +1,6 @@
 class SitesController < ApplicationController
   def show
-    case params[:service]
+    case params[:name]
     when 'github'
       render :json => Github.get_stats(params[:username])
     when 'bitbucket'

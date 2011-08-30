@@ -25,9 +25,9 @@ class window.SiteParser
 
 
   sites:
-    github:    compile 'github.com/:username'
-    dribbble:   compile 'dribbble.com/:username'
-    bitbucket: compile 'bitbucket.com/:username'
+    Github:    compile 'github.com/:username'
+    Dribbble:   compile 'dribbble.com/:username'
+    BitBucket: compile 'bitbucket.com/:username'
 
   parse: (url) ->
     for name, fn of @sites when args = fn(url)

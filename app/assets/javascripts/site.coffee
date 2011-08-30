@@ -2,127 +2,120 @@ class window.Site extends Backbone.Model
   defaults:
     url: ''
 
+  initialize: (options) ->
+    @set id: options.name.toLowerCase()
+
+  url: ->
+    params = '?' + ("#{key}=#{val}" for key, val of @get('args')).join('&')
+    "/sites/#{@id}/#{params}"
+
+
 class window.SiteCollection extends Backbone.Collection
 
 class window.SiteCollectionView extends Backbone.View
   collection: SiteCollection
 
   template:  _.template("""
-    <div class="add-site">
-      <a>Add another site</a>
+    <form class="url">
+      <span class="scheme">http://</span>
+      <input type="text" name="url" />
     </div>
+    <p class="supported-sites"></p>
+    <div class="site-views"></div>
   """)
 
   events:
-    'click .add-site': 'addEmptySite'
+    'submit form': 'submit'
 
   initialize: ->
-    _.bindAll @, 'addSite'
+    @parser = new SiteParser()
     @siteViews = []
-
-    @collection.bind 'add', @addSite
-
+    @collection.bind 'add', @addSiteView
     $(@el).html @template()
+
+    # Populate list of supported sites
+    @$('.supported-sites').html _.map(@supportedSites(), (name) ->
+      console.log name
+      "<span class=\"#{name.toLowerCase()}\">#{name}</span>"
+    ).join(', ')
 
   render: ->
     for siteView in @siteViews
       siteView.render()
 
-  addEmptySite: ->
-    model = new Site()
-    @collection.add(model)
+  submit: (e) =>
+    e.preventDefault()
+    url = @$('form input[name=url]').val()
+    [name, args] = @parser.parse(url)
+    @addSiteWithUrl(url, name, args)
 
-  addSiteWithUrl: (url) ->
-    siteModel = new Site(url: url)
+  addSiteWithUrl: (url, name, args) ->
+    siteModel = new Site(url: url, name: name, args: args)
     @collection.add(siteModel)
 
-  addSite: (site) ->
-    siteView = new SiteView(model: site)
-    @$('.add-site').before(siteView.el)
+  addSiteView: (model) =>
+    siteView = new SiteView(model: model)
+    @$('.site-views').append(siteView.el)
     @siteViews.push siteView
 
   toJSON: ->
-    view.toJSON() for view in @siteViews
+    (view.toJSON() for view in @siteViews).join("\n")
+
+  supportedSites: ->
+    name for name, v of @parser.sites
 
 
 class window.SiteView extends Backbone.View
+  tagName:   'section'
   className: 'site'
   model: Site
 
   template: _.template("""
     <a class="remove">Remove</a>
-    <div class="url">
-      <span class="scheme">http://</span>
-      <input type="text" value="<%= url %>" name="url" />
-    </div>
-    <div class="supported-sites"></div>
 
-    <div class="description">
-      <div class="followers"></div>
-      <div class="gravatar"></div>
-      <textarea placeholder="Description"></textarea>
-    </div>
-  """)
-
-  template_bitbucket: _.template("""
-    <div class="gravatar"></div>
-    <div class="repositories"></div>
+    <div class="content"></div>
   """)
 
   events:
     'click .remove': 'hide'
-    'blur .url input': 'fetchData'
 
   initialize: ->
-    _.bindAll @, 'fetchData'
-
-    @parser = new SiteParser()
     $(@el).html(@template(@model.toJSON()))
+    proto = @constructor[@model.get('name')]
+    @siteView = new proto(model: @model)
+    @$('.content').append(@siteView.el)
+    @model.bind('change', @render)
 
-    @$('.supported-sites').html _.map(@supportedSites(), (name) ->
-      "<span class=\"#{name}\">#{name}</span>"
-    ).join(', ')
-
-  render: ->
-
+  render: =>
+    @siteView.render()
 
   hide: (e) ->
     @model.collection.remove(@model)
     @remove()
 
-  fetchData: (e) ->
-    @model.set url: $(e.target).val()
+  toJSON: -> @siteView.toJSON()
 
-    result = @parser.parse(@model.get('url'))
-    console.log $(e.target).val()
-    console.log result
-    if result
-      username = result[1].username
-      switch result[0]
-        when "github"
-          $.getJSON "http://github.com/api/v2/json/user/show/#{username}?callback=?", (data) =>
-            @$('.description textarea').remove()
-            @$('.description .followers').text "#{data.user.followers_count} followers"
-            @$('.description .gravatar').html "<img src=\"http://www.gravatar.com/avatar/#{data.user.gravatar_id}\" />" if data.user.gravatar_id
-            $('.name input').val(data.user.name) if $('.name input').val() == ""
-            $('.email input').val(data.user.email) if $('.email input').val() == ""
-            blogURL = data.user.blog.replace(/^http:\/\//, '')
-            App.pageView.siteCollectionView.addSiteWithUrl(blogURL)
-        when "bitbucket"
-          $.getJSON "https://api.bitbucket.org/1.0/users/#{username}?callback=?", (data) =>
-            console.log data
-            @$('.description').html(@template_bitbucket)
-            @$('.description .gravatar').html "<img src=\"#{data.user.avatar}\" />" if data.user.avatar
-            @$('.description .repositories').html _.map(data.repositories, (repository) ->
-              "<span><a href=\"#{repository.website}\">#{repository.name}</a></span>"
-            ).join(', ')
-            $('.name input').val(data.user.first_name + " " + data.user.last_name) if $('.name input').val() == ""
-            $('.email input').val(data.user.email) if $('.email input').val() == ""
+  class @SiteContentView extends Backbone.View
+    loadingTemplate: _.template("""
+      <div class="loading">Loading &helip;</div>
+    """)
 
+    initialize: ->
+      $(@el).html @loadingTemplate()
+      @model.fetch
+        success: =>
+          try
+            $(@el).html @render()
+          catch e
+            console.log 'There was an error rendering site template'
+            throw e
 
-  supportedSites: ->
-    [name for name, v of @parser.sites]
+        error: =>
+          console.log 'there was an error loading this site'
 
-  toJSON: ->
-    @model.toJSON(url: @$('.url input').val())
+    render: =>
+      @template(@model.toJSON())
+
+    toJSON: =>
+      @report(@model.toJSON())
 

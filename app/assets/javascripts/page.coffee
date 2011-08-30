@@ -26,7 +26,7 @@ class window.PageView extends Backbone.View
       <p>Hello Atlassian!</p>
 
       <p>
-        My name is <span class="name editable" contenteditable="true" data-placeholder="John Smith"></span>. I'd love to work with you guys. Helping developers is my passion and I think our talents would be perfect together.
+        My name is <span class="name editable" contenteditable data-placeholder="John Smith"></span>. I'd love to work with you guys. Helping developers is my passion and I think our talents would be perfect together.
       </p>
     </div>
 
@@ -79,7 +79,7 @@ class window.PageView extends Backbone.View
     #   if input.text() is ''
     #     input.text input.data('placeholder')
 
-    @siteCollectionView.addEmptySite()
+    # @siteCollectionView.addEmptySite()
 
 
   render: ->
@@ -95,5 +95,5 @@ class window.PageView extends Backbone.View
       country: @$('.country input').val()
 
       email: @$('.email input').val()
-      sites: @siteCollectionView.toJSON()
+      comments: @siteCollectionView.toJSON()
 
